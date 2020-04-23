@@ -3,7 +3,8 @@ import styled from "styled-components"
 import Display from "./Display"
 import Stage from "./Stage"
 import StartButton from "./StartButton"
-import { createStage } from "../gameHelpers"
+import usePlayer from "../hooks/usePlayer"
+import useStage from "../hooks/useStage"
 import bgImage from "../images/bg.png"
 
 const StyledTetrisWrapper = styled.div`
@@ -30,16 +31,27 @@ const StyledTetris = styled.div`
 `
 
 const Tetris = () => {
+  const [dropTime, setDropTime] = React.useState(null)
+  const [gameOver, setGameOver] = React.useState(false)
+  const [player] = usePlayer()
+  const [stage, setStage] = useStage(player)
+
+  console.log("re-render")
+
   return (
     <StyledTetrisWrapper>
       <StyledTetris>
-        <Stage stage={createStage()} />
+        <Stage stage={stage} />
         <aside>
-          <div>
-            <Display text="Score" />
-            <Display text="Rows" />
-            <Display text="Level" />
-          </div>
+          {gameOver ? (
+            <Display gameOver text="Game Over" />
+          ) : (
+            <div>
+              <Display text="Score" />
+              <Display text="Rows" />
+              <Display text="Level" />
+            </div>
+          )}
           <StartButton />
         </aside>
       </StyledTetris>
