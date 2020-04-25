@@ -3,7 +3,7 @@ import React from "react"
 const useGameStatus = (rowsCleared) => {
   const [score, setScore] = React.useState(0)
   const [rows, setRows] = React.useState(0)
-  const [level, setLevel] = React.useState(0)
+  const [level, setLevel] = React.useState(1)
 
   const linePoints = [40, 100, 300, 1200]
 

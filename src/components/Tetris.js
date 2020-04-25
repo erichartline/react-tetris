@@ -132,8 +132,8 @@ const Tetris = () => {
           ) : (
             <div>
               <Display text={`Score: ${score}`} />
-              <Display text={`Score: ${rows}`} />
-              <Display text={`Score: ${level}`} />
+              <Display text={`Rows: ${rows}`} />
+              <Display text={`Level: ${level}`} />
             </div>
           )}
           <StartButton callback={startGame} />
