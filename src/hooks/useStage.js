@@ -14,7 +14,7 @@ const useStage = (player, resetPlayer) => {
           // add row to rowsCleared
           setRowsCleared((prev) => prev + 1)
           // add empty new row to top of array
-          acc.unshift(new Array(newStage[0].length).fill(0, "clear"))
+          acc.unshift(new Array(newStage[0].length).fill([0, "clear"]))
           return acc
         }
         acc.push(row)
@@ -26,6 +26,7 @@ const useStage = (player, resetPlayer) => {
       const newStage = prevStage.map((row) =>
         row.map((cell) => (cell[1] === "clear" ? [0, "clear"] : cell)),
       )
+
       // then draw the tetromino
       player.tetromino.forEach((row, y) => {
         row.forEach((value, x) => {
@@ -37,7 +38,7 @@ const useStage = (player, resetPlayer) => {
           }
         })
       })
-      // then check if we collided
+      // then check if we got some score if collided
       if (player.collided) {
         resetPlayer()
         return sweepRows(newStage)
@@ -45,6 +46,7 @@ const useStage = (player, resetPlayer) => {
       return newStage
     }
 
+    // here are the updates
     setStage((prev) => updateStage(prev))
   }, [player, resetPlayer])
 

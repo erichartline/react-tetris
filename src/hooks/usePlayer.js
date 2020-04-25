@@ -1,5 +1,5 @@
 import React from "react"
-import { randomTetromino, TETROMINOS } from "../tetrominos"
+import { TETROMINOS, randomTetromino } from "../tetrominos"
 import { STAGE_WIDTH, checkCollision } from "../gameHelpers"
 
 const usePlayer = () => {

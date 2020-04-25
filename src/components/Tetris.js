@@ -36,13 +36,12 @@ const StyledTetris = styled.div`
 const Tetris = () => {
   const [dropTime, setDropTime] = React.useState(null)
   const [gameOver, setGameOver] = React.useState(false)
+
   const [player, updatePlayerPosition, resetPlayer, playerRotate] = usePlayer()
   const [stage, setStage, rowsCleared] = useStage(player, resetPlayer)
   const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(
     rowsCleared,
   )
-
-  console.log("re-render")
 
   const movePlayer = (direction) => {
     if (!checkCollision(player, stage, { x: direction, y: 0 })) {
