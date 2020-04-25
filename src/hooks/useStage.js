@@ -3,14 +3,29 @@ import { createStage } from "../gameHelpers"
 
 const useStage = (player, resetPlayer) => {
   const [stage, setStage] = React.useState(createStage())
+  const [rowsCleared, setRowsCleared] = React.useState(0)
 
   React.useEffect(() => {
+    setRowsCleared(0)
+    const sweepRows = (newStage) =>
+      newStage.reduce((acc, row) => {
+        // if filled complete row
+        if (row.findIndex((cell) => cell[0] === 0) === -1) {
+          // add row to rowsCleared
+          setRowsCleared((prev) => prev + 1)
+          // add empty new row to top of array
+          acc.unshift(new Array(newStage[0].length).fill(0, "clear"))
+          return acc
+        }
+        acc.push(row)
+        return acc
+      }, [])
+
     const updateStage = (prevStage) => {
       // first flush the stage
       const newStage = prevStage.map((row) =>
         row.map((cell) => (cell[1] === "clear" ? [0, "clear"] : cell)),
       )
-
       // then draw the tetromino
       player.tetromino.forEach((row, y) => {
         row.forEach((value, x) => {
@@ -25,15 +40,15 @@ const useStage = (player, resetPlayer) => {
       // then check if we collided
       if (player.collided) {
         resetPlayer()
+        return sweepRows(newStage)
       }
-
       return newStage
     }
 
     setStage((prev) => updateStage(prev))
   }, [player, resetPlayer])
 
-  return [stage, setStage]
+  return [stage, setStage, rowsCleared]
 }
 
 export default useStage
