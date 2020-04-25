@@ -34,7 +34,7 @@ const StyledTetris = styled.div`
 const Tetris = () => {
   const [dropTime, setDropTime] = React.useState(null)
   const [gameOver, setGameOver] = React.useState(false)
-  const [player, updatePlayerPosition, resetPlayer] = usePlayer()
+  const [player, updatePlayerPosition, resetPlayer, playerRotate] = usePlayer()
   const [stage, setStage] = useStage(player, resetPlayer)
 
   console.log("re-render")
@@ -83,6 +83,10 @@ const Tetris = () => {
       // down
       if (keyCode === 40) {
         dropPlayer()
+      }
+      // up
+      if (keyCode === 38) {
+        playerRotate(stage, 1)
       }
     }
   }
