@@ -22,12 +22,16 @@ const useStage = (player, resetPlayer) => {
           }
         })
       })
+      // then check if we collided
+      if (player.collided) {
+        resetPlayer()
+      }
 
       return newStage
     }
 
     setStage((prev) => updateStage(prev))
-  }, [player])
+  }, [player, resetPlayer])
 
   return [stage, setStage]
 }
